@@ -7,10 +7,22 @@ import { collection, getDocs } from 'firebase/firestore/lite'
 function App() {
   const [video, setVideos] = useState([])
   async function getVideos() {
+    let videoData = []
     const videosCollection = collection(db, 'videos')
     const videosSnapshot = await getDocs(videosCollection)
-    const videoList = videosSnapshot.docs.map((doc) => doc.data())
-    setVideos(videoList)
+    videosSnapshot.docs.map((doc) =>
+      videoData.push({
+        id: doc.id,
+        likes: doc.data().likes,
+        messages: doc.data().messages,
+        shares: doc.data().shares,
+        name: doc.data().name,
+        description: doc.data().description,
+        music: doc.data().music,
+        url: doc.data().url,
+      })
+    )
+    setVideos(videoData)
   }
 
   useEffect(() => {
@@ -23,6 +35,7 @@ function App() {
         {video.map((item) => {
           return (
             <Video
+              key={item.id}
               likes={item.likes}
               messages={item.messages}
               shares={item.shares}
