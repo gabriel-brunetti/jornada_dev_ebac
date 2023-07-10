@@ -5,14 +5,18 @@ function VideoFooter({ name, description, music }) {
   return (
     <div className='videoFooter'>
       <div className='videoFooter__text'>
-        <h3>@{name}</h3>
+        <h3>{name}</h3>
         <p>{description}</p>
-        <div className='videoFooter__musicInfo'>
-          <MusicNoteIcon className='videoFooter__musicInfo__icon' />
-          <div className='videoFooter__musicInfo__text'>
-            <p>{music}</p>
+        {music ? (
+          <div className='videoFooter__musicInfo'>
+            <MusicNoteIcon className='videoFooter__musicInfo__icon' />
+            <div className='videoFooter__musicInfo__text'>
+              <p>{music}</p>
+            </div>
           </div>
-        </div>
+        ) : (
+          ''
+        )}
       </div>
       <img
         className='videoFooter__record'
